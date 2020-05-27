@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App = () => {
+  const text = "110";
+  const binaryToDecimal = binary => {
+    // return parseInt(binary, 2);
+    let decimal = 0;
+    for(let i = binary.length-1; i>=0; i--){
+      decimal += parseInt(binary[i])*Math.pow(2,binary.length-1-i);
+    }
+    return decimal;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {text}
+      <br/>
+      {binaryToDecimal(text)}
     </div>
   );
 }
