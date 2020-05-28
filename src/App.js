@@ -7,28 +7,46 @@ class App extends Component {
     super(props);
 
     this.state = {
-      binaryText: '',
+      binaryText: "",
       decimalNumber: 0,
+      errorMessage: "",
     };
   }
-  
-  binaryToDecimal = (event) => {
-    event.preventDefault();
-    console.log(this.state);
-    const {binaryText} = this.state; 
-    // return parseInt(binary, 2);
+
+  binaryToDecimal = (binary) => {
+    // const decimal = parseInt(binary, 2);
     let decimal = 0;
-    for(let i = binaryText.length-1; i>=0; i--){
-      decimal += parseInt(binaryText[i])*Math.pow(2,binaryText.length-1-i);
+    for(let i = binary.length-1; i>=0; i--){
+      decimal += parseInt(binary[i])*Math.pow(2,binary.length-1-i);
     }
-    this.setState({decimalNumber: decimal})
+    return decimal;
+  }
+  
+  onFormSubmit = (event) => {
+    event.preventDefault();
+    const {binaryText} = this.state; 
+    // this.setState({decimalNumber: parseInt(binaryText, 2)});
+    
+    if((/^[01]*$/).test(binaryText)) {
+      const decimal = this.binaryToDecimal(binaryText);
+      this.setState({
+        decimalNumber: decimal,
+        errorMessage: "",
+      });
+    } else {
+      this.setState({
+        decimalNumber: 0,
+        errorMessage: "Non-binary entry!"
+      });
+    }
   }
 
   render() {
-    const {binaryText, decimalNumber} = this.state;
+    const {binaryText, decimalNumber, errorMessage} = this.state;
     return (
       <div className="App">
-        <form onSubmit={this.binaryToDecimal}>
+        {errorMessage}
+        <form onSubmit={this.onFormSubmit}>
           <input
             type="text"
             value={binaryText}
