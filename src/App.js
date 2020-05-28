@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Form, Label, Input, FormFeedback, Button, Col, Row } from 'reactstrap';
 import './App.css';
 
 const App = () => {
@@ -30,20 +31,39 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      {errorMessage}
-      <form onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          value={binaryText}
-          onChange={(event) => setBinaryText(event.target.value)}
-        />
-        <button type="submit">
-          Convert!
-        </button>
-      </form>
-      <br/>
-      {decimalNumber}
+    <div>
+      <Form onSubmit={handleFormSubmit}>
+        <Row form className="m-sm-2 form-group">
+          <Col sm={2} className="mt-sm-1">
+            <Label>Binary Input: </Label>
+          </Col>
+          <Col sm={4}>
+            <Input 
+              type="text" 
+              value={binaryText} 
+              onChange={(event) => setBinaryText(event.target.value)}
+              invalid={Boolean(errorMessage)}
+            />
+            <FormFeedback>{errorMessage}</FormFeedback>
+          </Col>
+          <Col>
+            <Button className="ml-sm-2" color="secondary" type="submit">
+              Convert!
+            </Button>
+          </Col>
+        </Row>
+        <Row form className="m-sm-2 form-group">
+          <Col sm={2} className="mt-sm-1">
+            <Label>Decimal Output: </Label>
+          </Col>
+          <Col sm={4}>
+            <Input 
+              readOnly
+              value={decimalNumber}
+            />
+          </Col>
+        </Row>
+      </Form>
     </div>
   );
 }
