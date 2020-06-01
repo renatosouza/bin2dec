@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Label, Input, FormFeedback, Button, Col, Row } from 'reactstrap';
-import './App.css';
 
 const App = () => {
   const [binaryText, setBinaryText] = useState("");
@@ -11,7 +10,7 @@ const App = () => {
   const binaryToDecimal = (binary) => {
     let decimal = 0;
     for(let i = binary.length-1; i>=0; i--){
-      decimal += parseInt(binary[i])*Math.pow(2,binary.length-1-i);
+      decimal += parseInt(binary[i], 10)*Math.pow(2,binary.length-1-i);
     }
     return decimal;
   }
